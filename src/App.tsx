@@ -42,6 +42,7 @@ function App() {
     const { value: link, bindings: linkBindings } = useInput('');
     const { value: imageUrl, bindings: imageBindings } = useInput('');
     const [isValid, setValid] = useState<boolean>(true);
+    const [isLoading, setLoading] = useState<boolean>(false);
 
     const isGuest = telegram.initDataUnsafe.user?.username !== process.env.REACT_APP_USERNAME1 && telegram.initDataUnsafe.user?.username !== process.env.REACT_APP_USERNAME2
 
@@ -63,6 +64,8 @@ function App() {
         };
 
         try {
+            telegram.MainButton.showProgress();
+            setLoading(true);
             await fetch(`${process.env.REACT_APP_SERVER_URL}/new`, {
                 method: 'POST',
                 headers: {
@@ -70,6 +73,7 @@ function App() {
                 },
                 body: JSON.stringify({ data, username: telegram.initDataUnsafe.user?.username }),
             });
+            telegram.MainButton.hideProgress();
             telegram.close();
         } catch (error) {
             console.log(error);
@@ -129,6 +133,7 @@ function App() {
                             helperColor="error"
                             helperText={!isValid ? 'Required' : ''}
                             onChange={onNameChange}
+                            disabled={isLoading}
                         />
                     </Row>
                     <Spacer y={1} />
@@ -145,6 +150,7 @@ function App() {
                             status="default"
                             color="primary"
                             labelRight={<Icon icon={faDollarSign} />}
+                            disabled={isLoading}
                         />
                     </Row>
                     <Spacer y={1} />
@@ -159,6 +165,7 @@ function App() {
                             placeholder="Description"
                             status="default"
                             color="primary"
+                            disabled={isLoading}
                         />
                     </Row>
                     <Spacer y={1} />
@@ -174,6 +181,7 @@ function App() {
                             status="default"
                             color="primary"
                             labelRight={<Icon icon={faLink} />}
+                            disabled={isLoading}
                         />
                     </Row>
                     <Spacer y={1} />
@@ -189,6 +197,7 @@ function App() {
                             status="default"
                             color="primary"
                             labelRight={<Icon icon={faLink} />}
+                            disabled={isLoading}
                         />
                     </Row>
                 </Container>
