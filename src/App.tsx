@@ -66,7 +66,7 @@ function App() {
         try {
             telegram.MainButton.showProgress();
             setLoading(true);
-            await fetch(`${process.env.REACT_APP_SERVER_URL}/api/new`, {
+            await fetch(`${process.env.REACT_APP_SERVER_URL}/new`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
