@@ -128,7 +128,7 @@ function App() {
                             fullWidth
                             bordered
                             shadow={false}
-                            placeholder="Product ame"
+                            placeholder="Product name"
                             status="default"
                             color="primary"
                             disabled={isLoading}
