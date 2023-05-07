@@ -9,3 +9,4 @@ Also you need to set the following environment variables:
 
 More info you can find in bot [repository](https://github.com/yaroslav-klimuk/telegram-notion-bot/tree/main).
 
+<img width="515" alt="Screenshot 2023-05-08 at 00 11 27" src="https://user-images.githubusercontent.com/70700647/236704942-226283a9-8c6f-4fa4-80c5-55012fed8ec7.png">
