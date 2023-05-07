@@ -1,15 +1,5 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import {
-    NextUIProvider,
-    Container,
-    Row,
-    Spacer,
-    Text,
-    Input,
-    useInput,
-    FormElement,
-    createTheme,
-} from '@nextui-org/react';
+import { NextUIProvider, Container, Row, Spacer, Text, Input, createTheme, FormElement } from '@nextui-org/react';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faLink, faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import Error from './Components/Error';
@@ -36,23 +26,16 @@ const colorSchemes = {
 };
 
 function App() {
-    const { value: name, setValue, bindings } = useInput('');
-    const { value: price, bindings: priceBindings } = useInput('');
-    const { value: description, bindings: descriptionBindings } = useInput('');
-    const { value: link, bindings: linkBindings } = useInput('');
-    const { value: imageUrl, bindings: imageBindings } = useInput('');
-    const [isValid, setValid] = useState<boolean>(true);
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('');
+    const [description, setDescription] = useState('');
+    const [link, setLink] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
     const [isLoading, setLoading] = useState<boolean>(false);
 
-    const isGuest = telegram.initDataUnsafe.user?.username !== process.env.REACT_APP_USERNAME1 && telegram.initDataUnsafe.user?.username !== process.env.REACT_APP_USERNAME2
-
-    const onNameChange = useCallback(
-        (e: ChangeEvent<FormElement>) => {
-            setValue(e.target.value);
-            setValid(true);
-        },
-        [setValue],
-    );
+    const isGuest =
+        telegram.initDataUnsafe.user?.username !== process.env.REACT_APP_USERNAME1 &&
+        telegram.initDataUnsafe.user?.username !== process.env.REACT_APP_USERNAME2;
 
     const sendData = useCallback(async () => {
         const data = {
@@ -103,6 +86,26 @@ function App() {
         }
     }, [description, imageUrl, link, name, price]);
 
+    const onNameChange = (e: ChangeEvent<FormElement>) => {
+        setName(e.target.value);
+    };
+
+    const onPriceChange = (e: ChangeEvent<FormElement>) => {
+        setPrice(e.target.value);
+    };
+
+    const onDescriptionChange = (e: ChangeEvent<FormElement>) => {
+        setDescription(e.target.value);
+    };
+
+    const onLinkChange = (e: ChangeEvent<FormElement>) => {
+        setLink(e.target.value);
+    };
+
+    const onImageUrlChange = (e: ChangeEvent<FormElement>) => {
+        setImageUrl(e.target.value);
+    };
+
     return (
         <NextUIProvider theme={colorSchemes[telegram.colorScheme]}>
             {isGuest ? (
@@ -122,82 +125,75 @@ function App() {
                     </Row>
                     <Row>
                         <Input
-                            {...bindings}
                             fullWidth
-                            required
-                            bordered={isValid}
+                            bordered
                             shadow={false}
-                            placeholder="Name"
-                            status={isValid ? 'default' : 'error'}
-                            color={isValid ? 'primary' : 'error'}
-                            helperColor="error"
-                            helperText={!isValid ? 'Required' : ''}
-                            onChange={onNameChange}
+                            placeholder="Product ame"
+                            status="default"
+                            color="primary"
                             disabled={isLoading}
+                            defaultValue={name}
+                            onChange={onNameChange}
                         />
                     </Row>
                     <Spacer y={1} />
                     <Row>
                         <Input
-                            {...priceBindings}
                             type="number"
                             fullWidth
-                            required
                             bordered
                             shadow={false}
-                            value={price}
                             placeholder="Price"
                             status="default"
                             color="primary"
                             labelRight={<Icon icon={faDollarSign} />}
                             disabled={isLoading}
+                            defaultValue={price}
+                            onChange={onPriceChange}
                         />
                     </Row>
                     <Spacer y={1} />
                     <Row>
                         <Input
-                            {...descriptionBindings}
                             fullWidth
-                            required
                             bordered
                             shadow={false}
-                            value={description}
                             placeholder="Description"
                             status="default"
                             color="primary"
                             disabled={isLoading}
+                            defaultValue={description}
+                            onChange={onDescriptionChange}
                         />
                     </Row>
                     <Spacer y={1} />
                     <Row>
                         <Input
-                            {...linkBindings}
                             fullWidth
-                            required
                             bordered
                             shadow={false}
-                            value={link}
                             placeholder="Link"
                             status="default"
                             color="primary"
                             labelRight={<Icon icon={faLink} />}
                             disabled={isLoading}
+                            defaultValue={link}
+                            onChange={onLinkChange}
                         />
                     </Row>
                     <Spacer y={1} />
                     <Row>
                         <Input
-                            {...imageBindings}
                             fullWidth
-                            required
                             bordered
                             shadow={false}
-                            value={imageUrl}
                             placeholder="Image URL"
                             status="default"
                             color="primary"
                             labelRight={<Icon icon={faLink} />}
                             disabled={isLoading}
+                            defaultValue={imageUrl}
+                            onChange={onImageUrlChange}
                         />
                     </Row>
                 </Container>
