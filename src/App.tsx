@@ -140,6 +140,7 @@ function App() {
                     <Row>
                         <Input
                             type="number"
+                            inputMode='numeric'
                             fullWidth
                             bordered
                             shadow={false}
